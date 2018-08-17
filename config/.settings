@@ -1,0 +1,17 @@
+{
+    "projectName": "Products",
+    "username": "motivation.palybasy@mail.ru",
+    "id": "96c852b0-a234-11e8-8793-6b92dde9ca25",
+    "namespace": "",
+    "orgType": "developer",
+    "loginUrl": "https://login.salesforce.com/",
+    "instanceUrl": "https://ap4.salesforce.com",
+    "workspace": "/home/alexandr",
+    "subscription": [
+        "ApexClass",
+        "ApexComponent",
+        "ApexPage",
+        "ApexTrigger",
+        "StaticResource"
+    ]
+}
