@@ -1,0 +1,351 @@
+<!-- Page: -->
+<apex:page controller="DetailController" tabStyle="Product_Table__c" >
+    <apex:remoteObjects >
+        <apex:remoteObjectModel name="Contact" fields="FirstName,LastName,Email">
+            <apex:remoteObjectField name="Phone" jsShorthand="phone"/>
+           
+            
+
+        </apex:remoteObjectModel>
+            <apex:remoteObjectModel name="Order_Table__c" fields="Id,Product_Table__c,Order_Amount__c">
+            
+
+        </apex:remoteObjectModel>
+        <apex:remoteObjectModel name="Product_Table__c" fields="Id">
+            
+
+        </apex:remoteObjectModel>
+    
+    </apex:remoteObjects>
+   
+    
+    
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <title>Products page</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+      <!-- Import the Design System style sheet -->
+      <apex:slds />
+    </head>
+	<body>
+    
+   			
+			<div class="slds-page-header" role="banner">
+                <div class="slds-grid">
+                <div class="slds-col slds-size_6-of-12">
+                         <h1 class="slds-text-heading--medium slds-align_absolute-center">Contact Information</h1>	
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                		<h1 class="slds-text-heading--medium slds-align_absolute-center">Product Information</h1>	
+                </div>
+       		 </div>
+					        
+        	</div>
+        	<div class="slds-grid">
+                <div class="slds-col slds-size_6-of-12">
+                    <div class="slds-form-element" style="margin-top: 20px;">
+                        <div class="slds-grid">
+                             <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                            	<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Email</span>	
+                            </div>
+                             <div class="slds-col slds-size_6-of-12" >
+                            	<input type="email" id="email" class="slds-input" placeholder="AleshaValerov@gmail.com" style="width:auto"/>	
+                            </div>
+                        </div>
+					</div>
+                     <div class="slds-form-element" style="margin-top: 20px;">
+                        <div class="slds-grid">
+                             <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                            	<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">First Name</span>	
+                            </div>
+                             <div class="slds-col slds-size_6-of-12" >
+                                 <input type="text" id="firstName" class="slds-input" placeholder="Alex" style="width:auto" />	
+                            </div>
+                        </div>
+					</div>
+                     <div class="slds-form-element" style="margin-top: 20px;">
+                        <div class="slds-grid">
+                             <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                            	<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Last Name</span>	
+                            </div>
+                             <div class="slds-col slds-size_6-of-12" >
+                            	<input type="text" id="lastName" class="slds-input"  placeholder="Smit" style="width:auto"  />	
+                            </div>
+                        </div>
+					</div>
+                 	
+                    
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                	<div class="slds-form-element" style="margin-top: 10px;">
+                        <div class="slds-grid">
+                             <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                            	<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Product Name</span>	
+                            </div>
+                             <div class="slds-col slds-size_6-of-12" >
+                            	<span class="slds-form-element__static " >{!product.Name}</span>	
+                            </div>
+                        </div>
+					</div>
+                    <div class="slds-form-element" style="margin-top: 10px;">
+                        <div class="slds-grid">
+                             <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                            	<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Cost</span>	
+                            </div>
+                             <div class="slds-col slds-size_6-of-12" >
+                            	<span class="slds-form-element__static " value="1" id="price" >{!product.Unit_Price__c} $</span>	
+                            </div>
+                        </div>
+					</div>
+                    <div class="slds-form-element" style="margin-top: 10px;">
+                        <div class="slds-grid">
+                             <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                            	<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Unit count</span>	
+                            </div>
+                             <div class="slds-col slds-size_6-of-12" >
+                            	<input type="number" min="1"  id="unitCount" class="slds-input" placeholder="1" style="width:auto"/>
+                            </div>
+                        </div>
+					</div>
+                    <div class="slds-form-element" style="margin-top: 10px;">
+                        <div class="slds-grid">
+                             <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                            	<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; " >Total Amount</span>	
+                            </div>
+                             <div class="slds-col slds-size_6-of-12" >
+                            	<span class="slds-form-element__static " id="totalAmount" >{!product.Unit_Price__c} $</span>	
+                            </div>
+                        </div>
+					</div>
+                    
+                </div>
+       		 </div>
+        	 <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert" id="error"></div>    
+
+        	<div class="slds-page-header" role="banner">
+                <span style="" class="slds-align_absolute-center">
+               
+				    <a class="slds-button slds-button_outline-brand " href="javascript:history.back()" >To Shopping</a>
+               		<button class="slds-button slds-button_brand " id="submitData" onclick="logics()" >Buy</button>
+      
+                </span>
+        	</div>
+ 	<div class="slds-hide" id="UnitsAvaliable">{!product.Units_Avaliable__c}</div>
+        
+    </body>
+       <apex:includeScript value="{! $Resource.jQuery }"/>
+       
+       <script>
+           $('#unitCount').val(1);
+           var totalNumber;
+           var price = +$('#price').html().replace(/[^-0-9]/gim, '') / 100;
+           totalNumber = +(price * $('#unitCount').val());
+
+           $('#unitCount').change(function () {
+               totalNumber = +(price * $('#unitCount').val());
+               $('#totalAmount').html(totalNumber + " $");
+           });
+           console.log(totalNumber);
+           $('input').focus(function () {
+               $('#error').addClass('slds-hide');
+
+           });
+
+           function validateEmail(email) {
+               var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+               return re.test(email);
+           }
+
+           function logics() {
+
+               var email = $('#email').val();
+               var firstName = $('#firstName').val();
+               var lastName = $('#lastName').val();
+               var units = +$('#unitCount').val();
+               var dif = $('#UnitsAvaliable').html() - units;
+
+               var contactId;
+
+               if (!validateEmail(email)) {
+                   $('#error').html('wrong email').removeClass('slds-hide');
+                   return;
+               } else if (firstName.length == 0 || lastName.length == 0) {
+                   $('#error').html('enter Name and LastName').removeClass('slds-hide');
+                   return;
+               } else if (dif < 0) {
+                   $('#error').html('unfortunately we can not provide so many products').removeClass('slds-hide');
+                   return;
+               } else {
+
+
+                   console.log(" valid fine");
+                   var ct = new SObjectModel.Contact();
+
+
+                   ct.retrieve({
+                       where: {
+                           Email: {
+                               eq: email
+                           }
+                       },
+                       limit: 1
+                   }, function (error, results, event) {
+
+                       if (results.length > 0) {
+                           //  	console.log(results[0].get("phone"));
+                           //     console.log(results[0].get("FirstName"));
+                           results[0].set("FirstName", firstName);
+                           results[0].set("LastName", lastName);
+                           results[0].update();
+                           contactId = results[0].get("Id");
+                           console.log(results[0].get("FirstName") + "   OLD");
+                           //--------------------------------------
+
+
+                           var or = new SObjectModel.Order_Table__c();
+                           console.log(contactId);
+                           var idPr = "{!product.Id}";
+                           or.create({
+                                   Product_Table__c: idPr,
+                                   Units__c: units,
+                                   Order_Amount__c: totalNumber,
+                                   Contact__c: contactId
+                               }, function (err, results, event) {
+                                   if (err) {
+
+                                       console.log(err);
+                                       alert(err.message);
+                                   } else {
+                                       
+
+
+
+                                       var pr = new SObjectModel.Product_Table__c({
+
+                                           Id: "{!product.Id}",
+                                           Units_Avaliable__c: dif
+
+                                       });
+                                       pr.update(function (err, results, event) {
+                                           if (err) {
+
+                                               console.log(err);
+
+                                           } else {
+
+                                               console.log('')
+                                           }
+                                       });
+                                       alert('Yor order  was eccepted sucsessfully');
+
+
+
+
+
+
+                                   }
+
+                               }
+
+
+                           );
+                           //---------------------------------------------				
+
+
+
+                       } else {
+                           var ct2 = new SObjectModel.Contact();
+                           ct2.create({
+                               FirstName: firstName,
+                               LastName: lastName,
+                               Email: email
+                           });
+                           //    contactId = ct.get("Id");
+                           //
+                           // console.log(contactId);
+
+                           ct2.retrieve({
+                               where: {
+                                   Email: {
+                                       eq: email
+                                   }
+                               },
+                               limit: 1
+                           }, function (error, results, event) {
+
+                               contactId = results[0].get("Id");
+                               //-----------------------------------------------------------
+                               var or = new SObjectModel.Order_Table__c();
+                               console.log(contactId);
+                               var idPr = "{!product.Id}";
+                               or.create({
+                                       Product_Table__c: idPr,
+                                       Units__c: units,
+                                       Order_Amount__c: totalNumber,
+                                       Contact__c: contactId
+                                   }, function (err, results, event) {
+                                       if (err) {
+
+                                           console.log(err);
+                                           alert(err.message);
+                                       } else {
+
+
+
+
+                                           var pr = new SObjectModel.Product_Table__c({
+
+                                               Id: "{!product.Id}",
+                                               Units_Avaliable__c: dif
+
+                                           });
+                                           pr.update(function (err, results, event) {
+                                               if (err) {
+
+                                                   console.log(err);
+
+                                               } else {
+
+                                                   console.log('')
+                                               }
+                                           });
+                                           alert('Yor order  was eccepted sucsessfully');
+
+
+
+
+
+
+                                       }
+
+                                   }
+
+
+                               );
+                               //--------------------------------------------------------------
+
+                           });
+
+
+                       }
+
+
+                   });
+
+
+
+
+               }
+           }    
+    
+
+      
+   
+
+       
+       </script>
+    </html>
+</apex:page>

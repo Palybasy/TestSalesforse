@@ -1,0 +1,58 @@
+<!-- Page: -->
+<apex:page controller="DetailController" tabStyle="Product_Table__c" >
+   <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Products page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Import the Design System style sheet -->
+  <apex:slds />
+</head>
+	<body>
+    
+   			
+			<div class="slds-page-header" role="banner">
+				<h1 class="slds-text-heading--medium slds-align_absolute-center">{!product.Name}</h1>	        
+        	</div>
+        	<div class="slds-grid">
+                <div class="slds-col slds-size_6-of-12">
+                         <div class="slds-truncate"   title='Product Url'>
+            					  <img style="width:300px; margin-top: 20px " class="slds-align_absolute-center" src="{!product.Image_Url__c}"/>
+        				</div>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <h1 class="slds-text-title slds-text-color_weak" style="font-size: 15px; margin-top:20px;">
+                       Amount
+                    </h1>
+                    <p>
+                        {!product.Units_Avaliable__c}
+                    </p>
+                    
+                      <h1 class="slds-text-title slds-text-color_weak" style="font-size: 15px; margin-top: 20px">
+                       Price 
+                    </h1>
+                    <p>
+                        {!product.Unit_Price__c} $
+                    </p>
+                    
+                      <h1 class="slds-text-title slds-text-color_weak" style="font-size: 15px; margin-top:20px">
+                       Description
+                    </h1>
+                    <p>
+                        {!product.Product_Description__c}
+                    </p>
+                </div>
+       		 </div>
+        	<div class="slds-page-header" role="banner">
+                <span style="" class="slds-align_absolute-center">
+               
+				    <a class="slds-button slds-button_outline-brand " href="https://c.ap4.visual.force.com/apex/Products_Page" >To Shopping</a>
+               		<a class="slds-button slds-button_brand " href="https://c.ap4.visual.force.com/apex/Product_buy_page?id={!product.Id}" >Buy</a>
+      
+                </span>
+        	</div>
+ 
+    </body>
+    </html>
+</apex:page>

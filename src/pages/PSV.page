@@ -1,0 +1,33 @@
+<apex:page controller="PaunchShopsViewController">
+  <apex:form > 
+
+        
+        <apex:pageBlock >
+            <apex:actionFunction action="{!getThings}" name="selectThings" rerender="ThingTableSection"/>
+            
+           PaunchShops:
+            
+            <apex:selectList size="1" value="{!paunchId}" onchange="selectThings();">
+              <apex:selectOptions value="{!paunchSelectOptionList}">
+              
+              </apex:selectOptions>
+              
+            </apex:selectList>
+             <apex:pageBlockSection title="Paunch Table" columns="1" id="ThingTableSection">
+                 <apex:pageBlockTable value="{!thingList}" var="item">
+                     
+                     <apex:column breakBefore="" />
+                     <apex:column value="{!item.Name}" />
+                     <apex:column value="{!item.Price__c}" />
+                     <apex:column value="{!item.Describe__c}" />
+                     <apex:column value="{!item.Paunshop__c}" />
+                     <apex:column value="{!item.Status__c}" />
+                     
+                 
+                 </apex:pageBlockTable>
+                
+              </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+      </apex:form> 
+</apex:page>

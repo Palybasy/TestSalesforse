@@ -1,0 +1,76 @@
+<!-- Page: -->
+<apex:page controller="ProductController" id="thePage">
+   <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Products page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Import the Design System style sheet -->
+  <apex:slds />
+</head>
+<body>
+    <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Products List">Products List</h1>
+   <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+  	<thead>
+      
+        <tr class="slds-text-title_caps">
+          <th scope="col">
+            <div class="slds-truncate" title="Product Image">Image</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Product Name">Name</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Description">Description</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Price">Price</div>
+          </th>
+           <th scope="col">
+            <div class="slds-truncate" title="Unit avaliable">Unit avaliable</div>
+          </th>
+          
+         
+        </tr>
+  </thead>
+  <tbody>
+    <apex:repeat value="{!products}" var="product" id="theRepeat">
+        
+        <!----------------------------------->
+   <tr>
+      <td scope="row" data-label="Product Image">
+        <div class="slds-truncate" style="width:150px; "  title='Product Url'>
+              <img  src="{!product.Image_Url__c}"/>
+        </div>
+      </td>
+      <td scope="row" data-label="Product Name">
+        <div class="slds-truncate" title='{!product.Name}'>
+         	<a href="#">{!product.Name}</a>   
+         </div>
+      </td>
+      <td data-label="Product Description">
+        <div class="slds-truncate" style="max-width:450px;     white-space: normal; " title='{!product.Product_Description__c}'>{!product.Product_Description__c} ... <a href="https://c.ap4.visual.force.com/apex/Product_detail_page?id={!product.Id}" target="_blank">More</a></div>
+      </td>
+      <td data-label="Product Price">
+        <div class="slds-truncate" title='{!product.Unit_Price__c}'>{!product.Unit_Price__c}</div>
+      </td>
+       <td data-label="Product Units Avaliable">
+        <div class="slds-truncate" title='{!product.Units_Avaliable__c}'>{!product.Units_Avaliable__c}</div>
+      </td>
+        <td data-label="Product Units Avaliable">
+        <div class="slds-truncate" title='Button Buy'><a class="slds-button slds-button_brand" href="https://c.ap4.visual.force.com/apex/Product_buy_page?id={!product.Id}">Buy</a></div>
+      </td>
+     
+    </tr>
+        
+
+        
+    </apex:repeat>
+      </tbody>
+
+        
+		</table>
+       </body>
+    </html>
+</apex:page>
