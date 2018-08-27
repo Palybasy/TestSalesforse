@@ -4,316 +4,543 @@
         <apex:actionFunction name="sortBy" action="{!SortBy}" rerender="panel">
             <apex:param name="sortString" value="">
             </apex:param>
+            <apex:param name="way" value="">
+            </apex:param>
         </apex:actionFunction>
         <apex:actionFunction name="deleteProduct" action="{!DeleteProduct}" rerender="panel">
             <apex:param name="id" value="">
             </apex:param>
         </apex:actionFunction>
-         <apex:actionFunction name="createProduct" action="{!CreateProduct}" rerender="panel">
+        <apex:actionFunction name="createProduct" action="{!CreateProduct}" rerender="panel">
             <apex:param name="name" value="">
             </apex:param>
-             <apex:param name="price" value="">
+            <apex:param name="price" value="">
             </apex:param>
-             <apex:param name="amount" value="">
+            <apex:param name="amount" value="">
             </apex:param>
-             <apex:param name="type" value="">
+            <apex:param name="type" value="">
             </apex:param>
-             <apex:param name="addDate" value="">
+            <apex:param name="addDate" value="">
             </apex:param>
-             <apex:param name="relDate" value="">
+            <apex:param name="relDate" value="">
             </apex:param>
         </apex:actionFunction>
-         <apex:actionFunction name="findProduct" action="{!FindProduct}" rerender="panel">
+        <apex:actionFunction name="editProduct" action="{!EditProduct}" rerender="panel">
+            <apex:param name="id" value="">
+            </apex:param>
             <apex:param name="name" value="">
             </apex:param>
-              <apex:param name="date" value="">
+            <apex:param name="price" value="">
+            </apex:param>
+            <apex:param name="amount" value="">
+            </apex:param>
+            <apex:param name="type" value="">
+            </apex:param>
+            <apex:param name="addDate" value="">
+            </apex:param>
+            <apex:param name="relDate" value="">
             </apex:param>
         </apex:actionFunction>
-        
+        <apex:actionFunction name="findProduct" action="{!FindProduct}" rerender="panel">
+            <apex:param name="name" value="">
+            </apex:param>
+            <apex:param name="date" value="">
+            </apex:param>
+        </apex:actionFunction>
+        <apex:actionFunction name="prevBtn" action="{!prevBtn}" rerender="panel">
+        </apex:actionFunction>
+        <apex:actionFunction name="nextBtn" action="{!nextBtn}" rerender="panel">
+        </apex:actionFunction>
+
     </apex:form>
-    
- 
-   <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Products page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Import the Design System style sheet -->
-  <apex:slds />
-    <apex:stylesheet value="{!URLFOR($Resource.JqueryUI_CSS, 'jquery-ui-1.10.4.custom.min.css')}"/>
 
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  ></script>
-    <script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-  ></script>
-</head>
-<body>
-			 <div class="slds-page-header" role="banner">
-                		<span style="" class="slds-align_absolute-center">
-               
-               			<button class="slds-button slds-button_brand " id="createProduct"  >Create product</button>
-      
-               			 </span>
-        			</div>
-   				<div id='createPanel'>
-                    
-   
-    				<div class="slds-grid" >
-            	
-    		        <div class="slds-col slds-size_6-of-12">
+
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Products page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Import the Design System style sheet -->
+        <apex:slds />
+        <apex:stylesheet value="{!URLFOR($Resource.JqueryUI_CSS, 'jquery-ui-1.10.4.custom.min.css')}" />
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    </head>
+
+    <body>
+        <div id='editPanel' style='display:none;' >
+                <span style="" class="slds-align_absolute-center">
+                     <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Edit Panel">Edit Panel</h1>
+               </span>
+                <div class="slds-grid">
+
+                    <div class="slds-col slds-size_6-of-12">
                         <div class="slds-form-element" style="margin-top: 20px;">
                             <div class="slds-grid">
-                                 <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
-                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Name</span>	
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Name</span>
                                 </div>
-                                 <div class="slds-col slds-size_6-of-12" >
-                                    <input type="text" id="Name" class="slds-input" placeholder="" style="width:auto"/>	
-                                </div>
-                            </div>
-                        </div>
-                         <div class="slds-form-element" style="margin-top: 20px;">
-                            <div class="slds-grid">
-                                 <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
-                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Price</span>	
-                                </div>
-                                 <div class="slds-col slds-size_6-of-12" >
-                                     <input type="number" id="Price" class="slds-input" placeholder="" style="width:auto" />	
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="text" id="NameEdit" class="slds-input" placeholder="" style="width:auto" />
                                 </div>
                             </div>
                         </div>
-                         <div class="slds-form-element" style="margin-top: 20px;">
-                            <div class="slds-grid">
-                                 <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
-                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Amount</span>	
-                                </div>
-                                 <div class="slds-col slds-size_6-of-12" >
-                                    <input type="number" id="Amount" class="slds-input"  placeholder="" style="width:auto"  />	
-                                </div>
-                            </div>
-                        </div> 
-                	</div>
-            
-                 <div class="slds-col slds-size_6-of-12">
                         <div class="slds-form-element" style="margin-top: 20px;">
                             <div class="slds-grid">
-                                 <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
-                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Type</span>	
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Price</span>
                                 </div>
-                                 <div class="slds-col slds-size_6-of-12" >
-                                    <input type="email" id="Type" class="slds-input" placeholder="" style="width:auto"/>	
-                                </div>
-                            </div>
-                        </div>
-                         <div class="slds-form-element" style="margin-top: 20px;">
-                            <div class="slds-grid">
-                                 <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
-                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Addition Date</span>	
-                                </div>
-                                 <div class="slds-col slds-size_6-of-12" >
-                                     <input type="text" id="AddDate" class="slds-input" placeholder="" style="width:auto" />	
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="number" id="PriceEdit" class="slds-input" placeholder="" style="width:auto" />
                                 </div>
                             </div>
                         </div>
-                         <div class="slds-form-element" style="margin-top: 20px;">
+                        <div class="slds-form-element" style="margin-top: 20px;">
                             <div class="slds-grid">
-                                 <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
-                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Release Date</span>	
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Amount</span>
                                 </div>
-                                 <div class="slds-col slds-size_6-of-12" >
-                                    <input type="text" id="ReleaseDate" class="slds-input"  placeholder="" style="width:auto"  />	
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="number" id="AmountEdit" class="slds-input" placeholder="" style="width:auto" />
                                 </div>
                             </div>
-                        </div> 
-            	
-                	</div>
-  
-    	</div>
-         <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert" id="error"></div> 
-        <div class="slds-grid">
-               <div class="slds-col slds-size_12-of-12">
-                      <span style="" class="slds-align_absolute-center">
-               			<button class="slds-button slds-button_outline-brand"  id="create" >Create</button>
-                      </span>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_6-of-12">
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Type</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="email" id="TypeEdit" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Addition Date</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="text" id="AddDateEdit" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Release Date</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="text" id="ReleaseDateEdit" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-         </div>
-    </div>
-            <!---------------------------------FIND-->
-    <div class="slds-grid" style='margin-top: 20px;'>
-         <div class="slds-col slds-size_4-of-12">
-             <span style="" class="slds-align_absolute-center">
-            		<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Name</span>	 <input type="text" id="findName" class="slds-input"  placeholder="" style="width:auto"  />
-             </span>
-         </div>
-        <div class="slds-col slds-size_4-of-12">
-              <span style="" class="slds-align_absolute-center">     
-            		<span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Addition Date</span>	 <input type="text" id="findDate" class="slds-input"  placeholder="" style="width:auto"  />
-            </span>		
-         </div>
-         <div class="slds-col slds-size_4-of-12">
-                 <span style="" class="slds-align_absolute-center">
-               			<button class="slds-button slds-button_outline-brand"  id="search" >Find product</button>
-                  </span>  
-            
-         </div>
-     </div>
-     <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert" id="errorFind"></div> 
-    
-    <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Products List">Products List</h1>
-    <apex:outputPanel id="panel">
-   <table class="slds-table slds-table_bordered slds-table_cell-buffer" id='table'>
-  	<thead>
-      
-        <tr class="slds-text-title_caps">
-          <th scope="col">
-            <div class="slds-truncate order" style="cursor:pointer;" id='NameTtl' title="Product Image">Name</div>
-          </th>
-          <th scope="col">
-            <div class="slds-truncate order" style="cursor:pointer;" id='TypeTtl' title="Product Name">Type</div>
-          </th>
-          <th scope="col">
-            <div class="slds-truncate order" style="cursor:pointer;"  id='AddDateTtl' title="Addition Date">Addition Date</div>
-          </th>
-          <th scope="col">
-            <div class="slds-truncate order" style="cursor:pointer;"  id='PriceTtl' title="Price">Price</div>
-          </th>
-           <th scope="col">
-            <div class="slds-truncate order" style="cursor:pointer;"  id='AmountTtl' title="Unit avaliable">Unit avaliable</div>
-          </th>
-          
-         
-        </tr>
-  </thead>
-  <tbody>
-    <apex:repeat value="{!products}" var="product" id="theRepeat">
-        
-        <!----------------------------------->
-   <tr>
-      <td scope="row" data-label="Product Name">
-        <div class="slds-truncate" style="width:150px; "  title='Product Url'>
-              {!product.Name}
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert" id="errorEdit"></div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_12-of-12">
+                        <span style="" class="slds-align_absolute-center">
+                            <button class="slds-button slds-button_outline-brand" id="cancel">Cancel</button>
+                            <button class="slds-button slds-button_outline-brand" idPrd='' id="edit">Edit</button>
+                        </span>
+                    </div>
+                </div>
         </div>
-      </td>
-      <td scope="row" data-label="Product Type">
-        <div class="slds-truncate" title='{!product.Name}'>
-         	{!product.Type__c}  
-         </div>
-      </td>
-      <td data-label="Release Date">
-        <div class="slds-truncate"  title='{!product.DateAdd__c}'>{!product.DateAdd__c}</div>
-      </td>
-      <td data-label="Product Price">
-        <div class="slds-truncate" title='{!product.Price__c}'>{!product.Price__c} $</div>
-      </td>
-       <td data-label="Product Units Avaliable">
-        <div class="slds-truncate" title='{!product.Amount__c}'>{!product.Amount__c}</div>
-      </td>
-        <td data-label="{!product.Id}">
-        <div class="slds-truncate" title='Button Buy'><a class="slds-button slds-button_brand delete" id='{!product.Id}' href="#">Delete</a></div>
-      </td>
-     
-    </tr>
-        
 
-        
-    </apex:repeat>
-      </tbody>
+        <div id='createFindPanel'>
+            <div class="slds-page-header" role="banner">
+                <span style="" class="slds-align_absolute-center">
 
-        
-		</table>
-               <apex:includeScript value="{! $Resource.jQuery }"/>
-       <script>
-  $('.order').click(function(){
-      
-      
-      var sort = $(this).attr('id') ;
-      console.log(sort);
-    
-           
-        sortBy(sort);
-   
-  });
-   $('.delete').click(function(){
-       var id = $(this).attr('id') ;
-      
-      	deleteProduct(id);
-  
-   
-  });
-        
-        
-   
-       </script>
+                    <button class="slds-button slds-button_brand " id="createProduct">Create product</button>
+
+                </span>
+            </div>
+            <div id='createPanel'>
+
+
+                <div class="slds-grid">
+
+                    <div class="slds-col slds-size_6-of-12">
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Name</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="text" id="Name" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Price</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="number" id="Price" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Amount</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="number" id="Amount" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_6-of-12">
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Type</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="email" id="Type" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Addition Date</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="text" id="AddDate" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element" style="margin-top: 20px;">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_6-of-12" style=" text-align:end;">
+                                    <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Release Date</span>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <input type="text" id="ReleaseDate" class="slds-input" placeholder="" style="width:auto" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert" id="error"></div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_12-of-12">
+                        <span style="" class="slds-align_absolute-center">
+                            
+                            <button class="slds-button slds-button_outline-brand" id="create">Create</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!---------------------------------FIND-->
+            <div class="slds-grid" style='margin-top: 20px;'>
+                <div class="slds-col slds-size_4-of-12">
+                    <span style="" class="slds-align_absolute-center">
+                        <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Name</span>
+                        <input type="text" id="findName" class="slds-input" placeholder="" style="width:auto" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_4-of-12">
+                    <span style="" class="slds-align_absolute-center">
+                        <span class="slds-form-element__label" style=" font-size: .875rem; padding: 4px 0px ; ">Addition Date</span>
+                        <input type="text" id="findDate" class="slds-input" placeholder="" style="width:auto" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_4-of-12">
+                    <span style="" class="slds-align_absolute-center">
+                        <button class="slds-button slds-button_outline-brand" id="search">Find product</button>
+                    </span>
+
+                </div>
+            </div>
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-hide" role="alert" id="errorFind"></div>
+        </div>
+        <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Products List">Products List</h1>
+        <apex:outputPanel id="panel">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer" id='table'>
+                <thead>
+
+                    <tr class="slds-text-title_caps">
+                        <th scope="col">
+                            <div class="slds-truncate order" style="cursor:pointer;" id='NameTtl' way='{!way}' waytitle="Product Name">Name</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate order" style="cursor:pointer;" id='TypeTtl' way='{!way}' waytitle="Product Name">Type</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate order" style="cursor:pointer;" id='AddDateTtl' way='{!way}' title="Addition Date">Addition Date</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate order" style="cursor:pointer;" id='PriceTtl' way='{!way}' title="Price">Price</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate order" style="cursor:pointer;" id='AmountTtl' way='{!way}' title="Unit avaliable">Unit avaliable</div>
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!products}" var="product" id="theRepeat">
+
+                        <!-------------->
+                        <tr>
+                            <td scope="row" data-label="Product Name">
+                                <div class="slds-truncate" style="width:150px; " title='Product Url'>
+                                    {!product.Name}
+                                </div>
+                            </td>
+                            <td scope="row" data-label="Product Type">
+                                <div class="slds-truncate" title='{!product.Name}'>
+                                    {!product.Type__c}
+                                </div>
+                            </td>
+                            <td data-label="Release Date">
+                                <div class="slds-truncate" title='{!product.DateAdd__c}'>{!product.DateAdd__c}</div>
+                            </td>
+                            <td data-label="Product Price">
+                                <div class="slds-truncate" title='{!product.Price__c}'>{!product.Price__c} $</div>
+                            </td>
+                            <td data-label="Product Units Avaliable">
+                                <div class="slds-truncate" title='{!product.Amount__c}'>{!product.Amount__c}</div>
+                            </td>
+                            <td data-label="{!product.Id}">
+                                <div class="slds-truncate" title='Button Buy'>
+                                    <a class="slds-button slds-button_brand delete" id='{!product.Id}' href="#">Delete</a>
+                                    <a class="slds-button slds-button_brand edit" relDate='{!product.DateRelease__c}' id='{!product.Id}' name='{!product.Name}' type='{!product.Type__c}' dateAdd='{!product.DateAdd__c}' price='{!product.Price__c}' amount='{!product.Amount__c}' dateRel='{!product.DateRelease__c}' href="#">Edit</a>
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+
+                    </apex:repeat>
+
+                </tbody>
+
+
+            </table>
+
+            <div class="slds-grid">
+                <div class="slds-col slds-size_12-of-12">
+                    <span style="" class="slds-align_absolute-center">
+                        <button class="slds-button slds-button_outline-brand paginBtn1 {!Prv}" id='previous'>Previous</button>
+                        <button class="slds-button slds-button_outline-brand paginBtn2 {!Nxt}" id='next'>Next</button>
+                        <span style='margin-left:10px;'> Page {!PageNumber} of {!TotalPages} </span>
+                    </span>
+                   
+
+                </div>
+            </div>
+            <script>
+                $('.order').click(function () {
+
+
+                    var sort = $(this).attr('id');
+                    var way = $(this).attr('way');
+
+                    if ($(this).attr('way') == 'DESC') {
+
+                        console.log($(this).attr('way'));
+                        sortBy(sort, 'DESC');
+                    } else if ($(this).attr('way') == 'ASC') {
+                        console.log($(this).attr('way'));
+                        sortBy(sort, 'ASC');
+                    }
+
+
+
+                });
+
+                $('.delete').click(function () {
+                    var id = $(this).attr('id');
+
+                    deleteProduct(id);
+
+
+                });
+
+
+                $('.edit').click(function () {
+                    console.log($('#editPanel'));
+                    $('#editPanel').css({'display': 'block'}).slideDown();
+                    $('#createFindPanel').slideUp();
+
+                     
+                     var id = $(this).attr('id');
+                     var name = $(this).attr('name');
+                    var price = $(this).attr('price');
+                    var amount = $(this).attr('amount');
+                    var type = $(this).attr('type');
+                    var addDate =  new Date($(this).attr('dateAdd'));
+                    var relDate =  new Date($(this).attr('dateRel'));
+
+                    var strAdd = (addDate.getMonth() + 1) + '/' + addDate.getDate() + '/' +  addDate.getFullYear();
+                    var strRel = (relDate.getMonth() + 1) + '/' + relDate.getDate() + '/' +  relDate.getFullYear();     
+                    $('#NameEdit').val(name);
+                    $('#PriceEdit').val(price);
+                    $('#AmountEdit').val(amount);
+                    $('#TypeEdit').val(type);
+                    $('#AddDateEdit').val(strAdd);
+                    $('#ReleaseDateEdit').val(strRel);
+                    $('#edit').attr('idPrd', id);
+
+                    $('#editPanel').slideDown();
+
+                });
+
+
+                if ($('.paginBtn1').hasClass('disabled')) {
+                    $('.paginBtn1').attr("disabled", "disabled");
+                }
+                if ($('.paginBtn2').hasClass('disabled')) {
+                    $('.paginBtn2').attr("disabled", "disabled");
+                }
+                $('#previous').click(function () {
+                    prevBtn();
+                });
+                $('#next').click(function () {
+                    nextBtn();
+                });
+            </script>
         </apex:outputPanel>
-    				
-    
-    
-       </body>
-       
-       
-       <script>
- 			$('#AddDate').datepicker();
-       		$('#ReleaseDate').datepicker({maxDate:0});
-       		$('#findDate').datepicker();
-       		$('#createPanel').css({'display':'none'});
-       
-       		$('input').focus(function () {
-               $('#error').addClass('slds-hide');
-                $('#errorFind').addClass('slds-hide');
 
-           });
-       		$('#createProduct').click(function(){
-                
-              	$('#createPanel').slideToggle();
-                
-            });
-       
-       		 $('#create').click(function(){
-       		
-                     
-                 var name = $('#Name').val();
-                 var price = $('#Price').val();
-                 var amount = $('#Amount').val();
-                 var type = $('#Type').val();
-                 var addDate = $('#AddDate').val();
-                 var relDate = $('#ReleaseDate').val();
-                     
-                  console.log(name,price,amount, type, addDate, relDate);
-                 if(name == '' || price=='' || amount == '' || type =='' || addDate == "" ||relDate =='' )  {
-                     
-                    $('#error').html('All field are requared').removeClass('slds-hide');
-                     return;
-             } else {
-             
-             	createProduct(name,price,amount,type,addDate,relDate);
-                 $('#createProduct').click();
-             }
-                 
-                 
-  
-   
-  				});
-       
-       $('#search').click(function(){
-           var name = $('#findName').val() ;
-           var date = $('#findDate').val() ;
-       		if(name =='' && date ==''){
+
+
+    </body>
+
+
+    <script>
+        $('#AddDate').datepicker();
+        $('#ReleaseDate').datepicker({
+            maxDate: 0
+        });
+         $('#AddDateEdit').datepicker();
+        $('#ReleaseDateEdit').datepicker({
+            maxDate: 0
+        });
+        $('#findDate').datepicker();
+        $('#createPanel').css({
+            'display': 'none'
+        });
+
+        $('input').focus(function () {
+            $('#error').addClass('slds-hide');
+            $('#errorFind').addClass('slds-hide');
+
+        });
+        $('#createProduct').click(function () {
+
+            $('#createPanel').slideToggle();
+
+        });
+
+        $('#create').click(function () {
+
+
+            var name = $('#Name').val();
+            var price = $('#Price').val();
+            var amount = $('#Amount').val();
+            var type = $('#Type').val();
+            var addDate = $('#AddDate').val();
+            var relDate = $('#ReleaseDate').val();
+
+            console.log(name, price, amount, type, addDate, relDate);
+            if (name == '' || price == '' || amount == '' || type == '' || addDate == "" || relDate == '') {
+
+                $('#error').html('All field are requared').removeClass('slds-hide');
+                return;
+            } else {
+
+                createProduct(name, price, amount, type, addDate, relDate);
+
+                $('#Name').val('');
+                $('#Price').val('');
+                $('#Amount').val('');
+                $('#Type').val('');
+                $('#AddDate').val('');
+                $('#ReleaseDate').val('');
+
+                $('#createProduct').click();
+            }
+
+
+
+
+        });
+
+
+        $('#search').click(function () {
+            var name = $('#findName').val();
+            var date = $('#findDate').val();
+            if (name == '' && date == '') {
                 $('#errorFind').html('Fill the fieds').removeClass('slds-hide');
-                     return;
-                 } else {
-                     
+                return;
+            } else {
+
                 findProduct(name, date);
-               $('#findName').val('') ;
-               $('#findDate').val('') ;
-                 }
-           
-       
-       
-       });
-       </script>
-       
-       
+                $('#findName').val('');
+                $('#findDate').val('');
+            }
+
+        });
+
+        $('#cancel').click(function () {
+
+                $('#editPanel').css({'display': 'block'}).slideUp();
+                    $('#createFindPanel').slideDown();
+        });
+
+
+         $('#edit').click(function () {
+
+            var id = $('#edit').attr('idPrd');
+            var name = $('#NameEdit').val();
+            var price = $('#PriceEdit').val();
+            var amount = $('#AmountEdit').val();
+            var type = $('#TypeEdit').val();
+            var addDate = $('#AddDateEdit').val();
+            var relDate = $('#ReleaseDateEdit').val();
+
+            console.log(name, price, amount, type, addDate, relDate);
+            if (name == '' || price == '' || amount == '' || type == '' || addDate == "" || relDate == '') {
+
+                $('#errorEdit').html('All field are requared').removeClass('slds-hide');
+                return;
+            } else {
+
+                editProduct(id,name, price, amount, type, addDate, relDate);
+
+                 $('#editPanel').css({'display': 'block'}).slideUp();
+                $('#createFindPanel').slideDown();
+            
+
+                
+            }
+
+
+
+
+        });
+    </script>
+
+
     </html>
 </apex:page>
